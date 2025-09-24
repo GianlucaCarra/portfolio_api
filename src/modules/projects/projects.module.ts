@@ -7,9 +7,10 @@ import { TagsModule } from '../tags/tags.module';
 import { ImageModule } from '../images/image.module';
 import { Tag } from '../tags/entities/tag.entity';
 import { Image } from '../images/entities/image.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Tag, Image]), TagsModule, ImageModule],
+  imports: [TypeOrmModule.forFeature([Project, Tag, Image]), TagsModule, ImageModule, JwtModule],
   controllers: [ProjectsController],
   providers: [ProjectsService],
 })

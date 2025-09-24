@@ -7,22 +7,27 @@ import { Image } from "src/modules/images/entities/image.entity";
 
 export const typeOrmConfig = (configService: ConfigService): TypeOrmModuleOptions => {
   const host = configService.get<string>('HOST');
-  const port = configService.get<string>('PORT');
   const user = configService.get<string>('USER');
   const password = configService.get<string>('PASSWORD');
   const database = configService.get<string>('DATABASE');
+  const url = configService.get<string>('DB_URL');
 
-  if (!host || !port || !user || !password || !database) {
+  if (!host || !user || !password || !database) {
     throw new InternalServerErrorException('Database configuration variables are not set properly');
   }
 
   return {
     type: "postgres",
-    host: host,
-    port: parseInt(port || "5432"),
-    username: user,
-    password: password,
-    database: database,
+    url,
+    // host: host,
+    // port: 5432,
+    // username: user,
+    // password,
+    // database,
     entities: [Project, Tag, Image],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+    // autoLoadEntities: true,
   }
 }
