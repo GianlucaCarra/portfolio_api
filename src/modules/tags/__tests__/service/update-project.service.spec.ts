@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectsService } from '../../project-tags.service';
+import { ProjectsService } from '../../tags.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Project } from '../../entities/project-tag.entity';
+import { Project } from '../../entities/tag.entity';
 import { Repository } from 'typeorm';
-import { UpdateProjectDto } from '../../dto/update-project-tag.dto';
+import { UpdateProjectDto } from '../../dto/update-tag.dto';
 
 describe('ProjectService', () => {
   let service: ProjectsService;

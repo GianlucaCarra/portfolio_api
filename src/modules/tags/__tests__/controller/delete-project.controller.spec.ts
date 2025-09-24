@@ -1,10 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectsService } from '../../project-tags.service';
-import { ProjectsController } from '../../project-tags.controller';
-import { project } from '../fixtures/entities/project.entity';
-import { updateProjectDto } from '../fixtures/dto/update-project.dto';
+import { ProjectsService } from '../../tags.service';
+import { ProjectsController } from '../../tags.controller';
 
-describe('ProjectService', () => {
+describe('ProjectController', () => {
   let controller: ProjectsController;
   let service : ProjectsService;
 
@@ -15,7 +13,7 @@ describe('ProjectService', () => {
         {
           provide: ProjectsService,
           useValue: {
-            update: jest.fn(),
+            remove: jest.fn(),
           },
         },
       ],
@@ -25,23 +23,25 @@ describe('ProjectService', () => {
     service = module.get<ProjectsService>(ProjectsService);
   });
 
-  describe('Update function', () => {
+  describe('Delete functions', () => {
     it('should be defined', () => {
       expect(controller).toBeDefined();
       expect(service).toBeDefined();
     });
 
-    it('should return a project in response when a valid ID and properties are provided', async () => {
-      jest.spyOn(service, 'update').mockResolvedValue(project);
+    it('should remove a project and return its ID in response when a valid ID are provided', async () => {
+      const projectId = 1;
 
-      const result = await controller.update(project.id, updateProjectDto);
+      jest.spyOn(service, 'remove').mockResolvedValue(projectId);
+
+      const result = await controller.remove(projectId);
 
       expect(result).toEqual({
         success: true,
-        data: project,
+        data: projectId,
         timestamp: expect.any(String),
       });
-      expect(service.update).toHaveBeenCalledWith(project.id, updateProjectDto);
+      expect(service.remove).toHaveBeenCalledWith(projectId);
     });
   });
 });

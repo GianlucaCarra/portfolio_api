@@ -4,16 +4,18 @@ import { Readable } from 'stream';
 
 @Injectable()
 export class CloudinaryService {
-  async uploadImage(file: Express.Multer.File): Promise<string> {
+  constructor(@Inject('CLOUDINARY') private readonly cloudinaryClient) {}
+  
+  async create(file: Express.Multer.File): Promise<UploadApiResponse> {
     return new Promise((resolve, reject) => {
       const upload: UploadStream = cloudinary.uploader.upload_stream(
         { folder: 'nestjs_uploads' },
         (error: UploadApiErrorResponse, result: UploadApiResponse) => {
           if (error) {
-            return reject(error);
+            return reject(new BadRequestException('Failed to upload image'));
           }
 
-          resolve(result.toString());
+          resolve(result);
         },
       );
 
@@ -21,9 +23,9 @@ export class CloudinaryService {
     });
   }
 
-  async deleteImage(publicId: string): Promise<void> {
+  async delete(publicId: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      cloudinary.uploader.destroy(publicId, (error, result) => {
+      cloudinary.uploader.destroy(publicId, (error) => {
         if (error) {
           return reject(new BadRequestException('Failed to delete image'));
         }

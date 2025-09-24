@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectsService } from '../../project-tags.service';
-import { Project } from '../../entities/project-tag.entity';
-import { createProjectDto } from '../fixtures/dto/create-project.dto';
-import { ProjectsController } from '../../project-tags.controller';
+import { ProjectsService } from '../../tags.service';
+import { ProjectsController } from '../../tags.controller';
+import { project } from '../fixtures/entities/project.entity';
+import { updateProjectDto } from '../fixtures/dto/update-project.dto';
 
-describe('ProjectController', () => {
+describe('ProjectService', () => {
   let controller: ProjectsController;
   let service : ProjectsService;
 
@@ -15,7 +15,7 @@ describe('ProjectController', () => {
         {
           provide: ProjectsService,
           useValue: {
-            create: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -25,25 +25,23 @@ describe('ProjectController', () => {
     service = module.get<ProjectsService>(ProjectsService);
   });
 
-  describe('Create functions', () => {
+  describe('Update function', () => {
     it('should be defined', () => {
       expect(controller).toBeDefined();
       expect(service).toBeDefined();
     });
 
-    it('should create a project and return its entity as an object in response', async () => {
-      const createdProject = { id: 1, ...createProjectDto } as Project;
+    it('should return a project in response when a valid ID and properties are provided', async () => {
+      jest.spyOn(service, 'update').mockResolvedValue(project);
 
-      jest.spyOn(service, 'create').mockResolvedValue(createdProject);
-
-      const result = await controller.create(createProjectDto);
+      const result = await controller.update(project.id, updateProjectDto);
 
       expect(result).toEqual({
         success: true,
-        data: createdProject,
+        data: project,
         timestamp: expect.any(String),
       });
-      expect(service.create).toHaveBeenCalledWith(createProjectDto);
+      expect(service.update).toHaveBeenCalledWith(project.id, updateProjectDto);
     });
   });
 });

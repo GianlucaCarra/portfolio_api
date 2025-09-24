@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectsService } from '../../project-tags.service';
-import { Project } from '../../entities/project-tag.entity';
-import { ProjectsController } from '../../project-tags.controller';
+import { ProjectsService } from '../../tags.service';
+import { Project } from '../../entities/tag.entity';
+import { ProjectsController } from '../../tags.controller';
 import { project } from '../fixtures/entities/project.entity';
 
 describe('ProjectsService', () => {

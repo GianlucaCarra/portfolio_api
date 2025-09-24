@@ -1,9 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { plainToInstance } from 'class-transformer';
+import { Project } from './entities/project.entity';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
-
+@UseGuards(JwtAuthGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(
@@ -11,23 +15,27 @@ export class ProjectsController {
   ) {}
 
   @Post()
-  async create(@Body() body: CreateProjectDto) {
-    const project = await this.Execute.create(body);
+  @UseInterceptors(FilesInterceptor('files'))
+  async create(@UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
+    const body: CreateProjectDto = JSON.parse(data);
+    const project = await this.Execute.create(files, body);
 
     return {
       success: true,
-      data: project,
+      data: plainToInstance(Project, project),
       timestamp: new Date().toISOString(),
     };
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() body: UpdateProjectDto) {
-    const project = await this.Execute.update(id, body);
+  @UseInterceptors(FilesInterceptor('files'))
+  async update( @Param('id') id: number, @UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
+    const body: UpdateProjectDto = JSON.parse(data);
+    const project = await this.Execute.update(id, files, body);
 
     return { 
       success: true,
-      data: project,
+      data: plainToInstance(Project, project),
       timestamp: new Date().toISOString(),
      };
   }
@@ -38,7 +46,7 @@ export class ProjectsController {
 
     return {
       success: true,
-      data: projects,
+      data: plainToInstance(Project, projects),
       timestamp: new Date().toISOString(),
     };
   }
@@ -49,7 +57,7 @@ export class ProjectsController {
 
     return {
       success: true,
-      data: project,
+      data: plainToInstance(Project, project),
       timestamp: new Date().toISOString(),
     };
   }

@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectsService } from '../../project-tags.service';
-import { ProjectsController } from '../../project-tags.controller';
+import { ProjectsService } from '../../tags.service';
+import { Project } from '../../entities/tag.entity';
+import { createProjectDto } from '../fixtures/dto/create-project.dto';
+import { ProjectsController } from '../../tags.controller';
 
 describe('ProjectController', () => {
   let controller: ProjectsController;
@@ -13,7 +15,7 @@ describe('ProjectController', () => {
         {
           provide: ProjectsService,
           useValue: {
-            remove: jest.fn(),
+            create: jest.fn(),
           },
         },
       ],
@@ -23,25 +25,25 @@ describe('ProjectController', () => {
     service = module.get<ProjectsService>(ProjectsService);
   });
 
-  describe('Delete functions', () => {
+  describe('Create functions', () => {
     it('should be defined', () => {
       expect(controller).toBeDefined();
       expect(service).toBeDefined();
     });
 
-    it('should remove a project and return its ID in response when a valid ID are provided', async () => {
-      const projectId = 1;
+    it('should create a project and return its entity as an object in response', async () => {
+      const createdProject = { id: 1, ...createProjectDto } as Project;
 
-      jest.spyOn(service, 'remove').mockResolvedValue(projectId);
+      jest.spyOn(service, 'create').mockResolvedValue(createdProject);
 
-      const result = await controller.remove(projectId);
+      const result = await controller.create(createProjectDto);
 
       expect(result).toEqual({
         success: true,
-        data: projectId,
+        data: createdProject,
         timestamp: expect.any(String),
       });
-      expect(service.remove).toHaveBeenCalledWith(projectId);
+      expect(service.create).toHaveBeenCalledWith(createProjectDto);
     });
   });
 });

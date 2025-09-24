@@ -1,7 +1,8 @@
-import { Project } from '../modules/projects/entities/project.entity';
-import { ProjectTag } from '../modules/project-tags/entities/project-tag.entity';
-import { DataSource } from 'typeorm';
 import * as dotenv from "dotenv";
+import { Project } from '../modules/projects/entities/project.entity';
+import { Tag } from '../modules/tags/entities/tag.entity';
+import { DataSource } from 'typeorm';
+import { Image } from 'src/modules/images/entities/image.entity';
 
 dotenv.config();
 
@@ -12,6 +13,6 @@ export const AppDataSource = new DataSource({
   password: process.env.PASSWORD,
   username: process.env.USER,
   database: process.env.DATABASE,
-  entities: [Project, ProjectTag],
-  migrations: ['src/database/migrations/*{.ts,.js}'],
+  entities: [Project, Tag, Image],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
 });

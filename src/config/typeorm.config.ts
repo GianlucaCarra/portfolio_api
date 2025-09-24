@@ -1,8 +1,9 @@
 import { InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { ProjectTag } from "src/modules/project-tags/entities/project-tag.entity";
+import { Tag } from "src/modules/tags/entities/tag.entity";
 import { Project } from "src/modules/projects/entities/project.entity";
+import { Image } from "src/modules/images/entities/image.entity";
 
 export const typeOrmConfig = (configService: ConfigService): TypeOrmModuleOptions => {
   const host = configService.get<string>('HOST');
@@ -22,6 +23,6 @@ export const typeOrmConfig = (configService: ConfigService): TypeOrmModuleOption
     username: user,
     password: password,
     database: database,
-    entities: [Project, ProjectTag],
+    entities: [Project, Tag, Image],
   }
 }

@@ -11,8 +11,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     let status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     // let message = exception instanceof HttpException ? exception.getResponse() : 'Internal server error';
 
-    let error = 'Internal Server Error';
-    let message: string | string[] = 'Internal server error';
+    let error = exception instanceof HttpException ? exception.getResponse() : 'Internal Server Error';
+    let message: string | object = exception instanceof HttpException ? exception.getResponse() : 'Internal server error';
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();

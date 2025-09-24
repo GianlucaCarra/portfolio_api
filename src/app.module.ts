@@ -3,9 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ProjectsModule } from './modules/projects/projects.module';
-import { CloudinaryModule } from './src/modules/cloudinary/cloudinary/cloudinary.module';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { ImageModule } from './modules/images/image.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { SuperModule } from './modules/super/super.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -18,7 +20,16 @@ import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
       useFactory: (configService: ConfigService) => typeOrmConfig(configService),
     }),
     ProjectsModule,
-    CloudinaryModule, 
+    ImageModule,
+    CloudinaryModule,
+    AuthModule,
+    SuperModule,
+    ThrottlerModule.forRoot([
+      {
+        ttl: 240,
+        limit: 30,
+      },
+    ]),
   ],
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectsService } from '../../projects.service';
-import { Project } from '../../entities/project.entity';
+import { Project } from '../../project.entity';
 import { createProjectDto } from '../fixtures/dto/create-project.dto';
 import { ProjectsController } from '../../projects.controller';
 

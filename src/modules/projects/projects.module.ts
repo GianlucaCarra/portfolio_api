@@ -3,11 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProjectsController } from './projects.controller';
 import { ProjectsService } from './projects.service';
 import { Project } from './entities/project.entity';
-import { ProjectTagsModule } from '../project-tags/project-tags.module';
-import { ProjectTag } from '../project-tags/entities/project-tag.entity';
+import { TagsModule } from '../tags/tags.module';
+import { ImageModule } from '../images/image.module';
+import { Tag } from '../tags/entities/tag.entity';
+import { Image } from '../images/entities/image.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, ProjectTag]), ProjectTagsModule],
+  imports: [TypeOrmModule.forFeature([Project, Tag, Image]), TagsModule, ImageModule],
   controllers: [ProjectsController],
   providers: [ProjectsService],
 })
