@@ -7,13 +7,13 @@ import { plainToInstance } from 'class-transformer';
 import { Project } from './entities/project.entity';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(
     private readonly Execute: ProjectsService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   async create(@UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
@@ -27,6 +27,7 @@ export class ProjectsController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('files'))
   async update( @Param('id') id: number, @UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
@@ -62,6 +63,7 @@ export class ProjectsController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: number) {
     await this.Execute.remove(id);

@@ -22,7 +22,7 @@ export class SuperService {
   }
 
   private validate(data: LoginSuperDto) {
-    const email = this.configService.get<string>('email') === data.email;
+    const email = this.configService.get<string>('EMAIL') === data.email;
     const secret = this.configService.get<string>('SECRET_STRING') === data.secret;
 
     if(!email || !secret) {
