@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [/\.giancarra.com$/, 'https://giancarra.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   });
 

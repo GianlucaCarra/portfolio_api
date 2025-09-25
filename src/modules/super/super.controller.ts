@@ -8,12 +8,19 @@ export class SuperController {
   constructor(readonly superService: SuperService) {}
 
   @Post()
-  async login(@Body() data: LoginSuperDto, @Res() res: Response) {
-    const token = await this.superService.login(data, res);
+  async login(@Body() data: LoginSuperDto, @Res({ passthrough: true }) res: Response) {
+    const token = await this.superService.login(data);
+
+    res.cookie('jwt_token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 5 * 24 * 60 * 60 * 1000,
+    });
 
     return {
       success: true,
-      data: token,
+      data: data.email,
       timestamp: new Date().toISOString(),
     }
   }

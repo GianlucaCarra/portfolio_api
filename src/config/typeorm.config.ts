@@ -19,6 +19,5 @@ export const typeOrmConfig = (configService: ConfigService): TypeOrmModuleOption
     ssl: {
       rejectUnauthorized: false,
     },
-    // autoLoadEntities: true,
   }
 }

@@ -1,8 +1,7 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Res, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { LoginSuperDto } from './dto/login-super.dto';
 import { AuthService } from '../auth/auth.service';
-import { Response } from 'express';
 
 @Injectable()
 export class SuperService {
@@ -11,14 +10,14 @@ export class SuperService {
     private authService: AuthService
   ) {}
 
-  async login(data: LoginSuperDto, res: Response) {
+  async login(data: LoginSuperDto) {
     const isValid = this.validate(data);
 
     if(!isValid) {
       throw new UnauthorizedException('Wrong credentials');
     }
-
-    return await this.authService.generateToken(data, res);
+    
+    return this.authService.generateToken(data);
   }
 
   private validate(data: LoginSuperDto) {
