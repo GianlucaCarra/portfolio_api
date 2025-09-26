@@ -7,7 +7,7 @@ import { UpdateProjectDto } from '../../dto/update-project.dto';
 
 describe('ProjectService', () => {
   let service: ProjectsService;
-  let repo : Repository<Partial<Project>>;
+  let repo: Repository<Partial<Project>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -32,10 +32,10 @@ describe('ProjectService', () => {
 
     it('should update a project when a valid ID and properties are provided', async () => {
       const projectId = 1;
-      const dto: Partial<UpdateProjectDto> = { 
-        name: 'Test Project changed', 
-        description: 'A test project changed', 
-        frontendUrl: 'http://example.com/changed', 
+      const dto: Partial<UpdateProjectDto> = {
+        name: 'Test Project changed',
+        description: 'A test project changed',
+        frontendUrl: 'http://example.com/changed',
       };
 
       const preloadedProject = { id: projectId, ...dto } as Project;

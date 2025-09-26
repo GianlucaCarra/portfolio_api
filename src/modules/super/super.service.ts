@@ -7,24 +7,25 @@ import { AuthService } from '../auth/auth.service';
 export class SuperService {
   constructor(
     private configService: ConfigService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   async login(data: LoginSuperDto) {
     const isValid = this.validate(data);
 
-    if(!isValid) {
+    if (!isValid) {
       throw new UnauthorizedException('Wrong credentials');
     }
-    
+
     return this.authService.generateToken(data);
   }
 
   private validate(data: LoginSuperDto) {
     const email = this.configService.get<string>('EMAIL') === data.email;
-    const secret = this.configService.get<string>('SECRET_STRING') === data.secret;
+    const secret =
+      this.configService.get<string>('SECRET_STRING') === data.secret;
 
-    if(!email || !secret) {
+    if (!email || !secret) {
       throw new UnauthorizedException('Wrong credentials');
     }
 

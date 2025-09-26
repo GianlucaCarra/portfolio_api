@@ -1,8 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Image } from "./entities/image.entity";
-import { CloudinaryService } from "../cloudinary/cloudinary.service";
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Image } from './entities/image.entity';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class ImageService {
@@ -29,7 +29,9 @@ export class ImageService {
   }
 
   async remove(id: number): Promise<number> {
-    const imageToDelete = await this.imagesRepository.findOne({ where: { id } });
+    const imageToDelete = await this.imagesRepository.findOne({
+      where: { id },
+    });
 
     if (!imageToDelete) {
       throw new BadRequestException('Image not found');

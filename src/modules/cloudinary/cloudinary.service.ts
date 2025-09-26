@@ -1,11 +1,16 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { v2 as cloudinary, UploadApiErrorResponse, UploadApiResponse, UploadStream } from 'cloudinary';
+import {
+  v2 as cloudinary,
+  UploadApiErrorResponse,
+  UploadApiResponse,
+  UploadStream,
+} from 'cloudinary';
 import { Readable } from 'stream';
 
 @Injectable()
 export class CloudinaryService {
   constructor(@Inject('CLOUDINARY') private readonly cloudinaryClient) {}
-  
+
   async create(file: Express.Multer.File): Promise<UploadApiResponse> {
     return new Promise((resolve, reject) => {
       const upload: UploadStream = cloudinary.uploader.upload_stream(

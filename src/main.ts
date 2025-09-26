@@ -18,7 +18,7 @@ async function bootstrap() {
   app.useGlobalPipes(validationPipe);
 
   app.useGlobalFilters(new GlobalExceptionFilter());
-  
+
   await app.listen(3000);
 }
 

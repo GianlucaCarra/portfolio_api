@@ -1,6 +1,13 @@
-import { Image } from "src/modules/images/entities/image.entity";
-import { Tag } from "src/modules/tags/entities/tag.entity";
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Image } from 'src/modules/images/entities/image.entity';
+import { Tag } from 'src/modules/tags/entities/tag.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Project {
@@ -23,7 +30,7 @@ export class Project {
   liveUrl?: string;
 
   @OneToMany(() => Image, (image) => image.project, { cascade: true })
-  images?: Image[]; 
+  images?: Image[];
 
   @ManyToMany(() => Tag, (tag) => tag.projects, { cascade: true })
   @JoinTable({ name: 'project_tags' })

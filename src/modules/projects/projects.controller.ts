@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UploadedFiles,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -9,14 +20,15 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('projects')
 export class ProjectsController {
-  constructor(
-    private readonly Execute: ProjectsService,
-  ) {}
+  constructor(private readonly Execute: ProjectsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
-  async create(@UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
+  async create(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('data') data: string,
+  ) {
     const body: CreateProjectDto = JSON.parse(data);
     const project = await this.Execute.create(files, body);
 
@@ -30,15 +42,19 @@ export class ProjectsController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('files'))
-  async update( @Param('id') id: number, @UploadedFiles() files: Express.Multer.File[], @Body('data') data: string) {
+  async update(
+    @Param('id') id: number,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('data') data: string,
+  ) {
     const body: UpdateProjectDto = JSON.parse(data);
     const project = await this.Execute.update(id, files, body);
 
-    return { 
+    return {
       success: true,
       data: plainToInstance(Project, project),
       timestamp: new Date().toISOString(),
-     };
+    };
   }
 
   @Get()

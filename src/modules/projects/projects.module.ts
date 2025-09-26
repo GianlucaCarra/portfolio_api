@@ -10,7 +10,12 @@ import { Image } from '../images/entities/image.entity';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Tag, Image]), TagsModule, ImageModule, JwtModule],
+  imports: [
+    TypeOrmModule.forFeature([Project, Tag, Image]),
+    TagsModule,
+    ImageModule,
+    JwtModule,
+  ],
   controllers: [ProjectsController],
   providers: [ProjectsService],
 })

@@ -14,10 +14,11 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-      TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],         
-      inject: [ConfigService],        
-      useFactory: (configService: ConfigService) => typeOrmConfig(configService),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        typeOrmConfig(configService),
     }),
     ProjectsModule,
     ImageModule,

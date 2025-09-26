@@ -5,4 +5,4 @@ export const validationPipe = new ValidationPipe({
   forbidNonWhitelisted: true,
   transform: true,
   forbidUnknownValues: true,
-})
+});

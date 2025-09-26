@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
-  let repo : Repository<Partial<Project>>;
+  let repo: Repository<Partial<Project>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -31,21 +31,21 @@ describe('ProjectsService', () => {
 
     it('should show all projects', async () => {
       const projects: Project[] = [
-        { 
-          id: 1, 
-          name: 'Project 1', 
-          description: 'A test project 1', 
-          frontendUrl: 'http://example.com', 
+        {
+          id: 1,
+          name: 'Project 1',
+          description: 'A test project 1',
+          frontendUrl: 'http://example.com',
           backendUrl: 'http://example.com/image.png',
-          liveUrl: 'http://example.com/image.png'  
+          liveUrl: 'http://example.com/image.png',
         },
         {
-          id: 2, 
-          name: 'Project 2', 
+          id: 2,
+          name: 'Project 2',
           description: 'A test project 2',
-          frontendUrl: 'http://example.com', 
+          frontendUrl: 'http://example.com',
           backendUrl: 'http://example.com/image.png',
-          liveUrl: 'http://example.com/image.png'  
+          liveUrl: 'http://example.com/image.png',
         },
       ];
 
@@ -58,13 +58,13 @@ describe('ProjectsService', () => {
     });
 
     it('should return a project when a valid ID is provided', async () => {
-      const project: Project = { 
-        id: 1, 
-        name: 'Project 1', 
-        description: 'A test project 1', 
-        frontendUrl: 'http://example.com', 
+      const project: Project = {
+        id: 1,
+        name: 'Project 1',
+        description: 'A test project 1',
+        frontendUrl: 'http://example.com',
         backendUrl: 'http://example.com/image.png',
-        liveUrl: 'http://example.com/image.png'  
+        liveUrl: 'http://example.com/image.png',
       };
 
       jest.spyOn(repo, 'findOne').mockResolvedValue(project);

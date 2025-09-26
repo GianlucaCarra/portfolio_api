@@ -1,4 +1,4 @@
-import { CreateProjectDto } from "src/modules/projects/dto/create-project.dto";
+import { CreateProjectDto } from 'src/modules/projects/dto/create-project.dto';
 
 export const createProjectDto: CreateProjectDto = {
   name: 'Test Project',

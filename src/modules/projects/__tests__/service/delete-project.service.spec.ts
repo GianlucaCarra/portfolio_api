@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
-  let repo : Repository<Partial<Project>>;
+  let repo: Repository<Partial<Project>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -30,13 +30,13 @@ describe('ProjectsService', () => {
     });
 
     it('should remove a project when a valid ID is provided', async () => {
-      const project: Project = { 
-        id: 1, 
-        name: 'Project 1', 
-        description: 'A test project 1', 
-        frontendUrl: 'http://example.com', 
+      const project: Project = {
+        id: 1,
+        name: 'Project 1',
+        description: 'A test project 1',
+        frontendUrl: 'http://example.com',
         backendUrl: 'http://example.com/image.png',
-        liveUrl: 'http://example.com/image.png'  
+        liveUrl: 'http://example.com/image.png',
       };
 
       jest.spyOn(service, 'findById').mockResolvedValue(project);

@@ -7,14 +7,14 @@ import { Response } from 'express';
 export class AuthService {
   constructor(
     private configService: ConfigService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   generateToken(user: any) {
-    const payload = { sub: user.email};
+    const payload = { sub: user.email };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: '5d'
+      expiresIn: '5d',
     });
 
     return token;

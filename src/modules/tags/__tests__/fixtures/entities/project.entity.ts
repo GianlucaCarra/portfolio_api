@@ -1,4 +1,4 @@
-import { Project } from "src/modules/projects/entities/project.entity";
+import { Project } from 'src/modules/projects/entities/project.entity';
 
 export const project: Project = {
   id: 1,

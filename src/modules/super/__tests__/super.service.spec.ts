@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CloudinaryService } from './cloudinary.service';
+import { SuperService } from '../super.service';
 
-describe('CloudinaryService', () => {
-  let service: CloudinaryService;
+describe('SuperService', () => {
+  let service: SuperService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CloudinaryService],
+      providers: [SuperService],
     }).compile();
 
-    service = module.get<CloudinaryService>(CloudinaryService);
+    service = module.get<SuperService>(SuperService);
   });
 
   it('should be defined', () => {

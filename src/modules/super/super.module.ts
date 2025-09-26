@@ -7,6 +7,6 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [AuthModule, ConfigModule],
   providers: [SuperService],
-  controllers: [SuperController]
+  controllers: [SuperController],
 })
 export class SuperModule {}

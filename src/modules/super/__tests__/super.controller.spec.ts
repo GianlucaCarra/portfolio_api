@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SuperController } from './super.controller';
+import { SuperController } from '../super.controller';
 
 describe('SuperController', () => {
   let controller: SuperController;

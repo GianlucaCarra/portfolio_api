@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -10,21 +15,26 @@ import { TagsService } from '../tags/tags.service';
 @Injectable()
 export class ProjectsService {
   constructor(
-    @InjectRepository(Project) 
+    @InjectRepository(Project)
     private projectRepository: Repository<Project>,
     private readonly tagService: TagsService,
     private readonly imageService: ImageService,
   ) {}
 
-  async create(files: Express.Multer.File[], data: CreateProjectDto): Promise<Project> {
-    const tags = await Promise.all((data.tags || []).map(async (name) => {
+  async create(
+    files: Express.Multer.File[],
+    data: CreateProjectDto,
+  ): Promise<Project> {
+    const tags = await Promise.all(
+      (data.tags || []).map(async (name) => {
         return await this.tagService.create({ name });
-      })
+      }),
     );
 
-    const images = await Promise.all((files || []).map(async (file) => {
+    const images = await Promise.all(
+      (files || []).map(async (file) => {
         return await this.imageService.create(file);
-      })
+      }),
     );
 
     const newProject = this.projectRepository.create({
@@ -32,7 +42,7 @@ export class ProjectsService {
       tags,
       images: images.length > 0 ? images : undefined,
     });
-    
+
     newProject.images?.forEach((image) => {
       image.project = newProject;
     });
@@ -40,11 +50,19 @@ export class ProjectsService {
     try {
       return await this.projectRepository.save(newProject);
     } catch (error) {
+      if (error.message) {
+        throw new BadRequestException(error.message);
+      }
+
       throw new BadRequestException('Failed to create project');
     }
   }
 
-  async update(id: number, files: Express.Multer.File[], data: UpdateProjectDto): Promise<Project> {
+  async update(
+    id: number,
+    files: Express.Multer.File[],
+    data: UpdateProjectDto,
+  ): Promise<Project> {
     try {
       const project = await this.findById(id);
 
@@ -60,13 +78,15 @@ export class ProjectsService {
         );
 
         project.tags = [...(project.tags ?? []), ...newTags];
-        project.tags = project.tags.filter((tag, index, self) => index === self.findIndex((t) => t.id === tag.id));
+        project.tags = project.tags.filter(
+          (tag, index, self) =>
+            index === self.findIndex((t) => t.id === tag.id),
+        );
       }
 
-      console.log(project.tags)
-
       if (files) {
-        const newImages = await Promise.all(files.map(async (file) => {
+        const newImages = await Promise.all(
+          files.map(async (file) => {
             return await this.imageService.create(file);
           }),
         );
@@ -83,18 +103,16 @@ export class ProjectsService {
       return await this.projectRepository.save(project);
     } catch (error) {
       if (error.message) {
-        console.log(error)
         throw new BadRequestException(error.message);
       }
 
-        console.log(error)
       throw new BadRequestException('Failed to update project');
     }
   }
 
   async findAll(): Promise<Project[]> {
     const projects = await this.projectRepository.find({
-      relations: { tags: true }
+      relations: { tags: true },
     });
 
     return projects;
@@ -102,11 +120,11 @@ export class ProjectsService {
 
   async findById(id: number): Promise<Project> {
     const project = await this.projectRepository.findOne({
-      where: { id: Number(id)},
+      where: { id: Number(id) },
       relations: {
-        tags: true, 
-        images: true
-      }
+        tags: true,
+        images: true,
+      },
     });
 
     if (!project) {
@@ -122,6 +140,10 @@ export class ProjectsService {
     try {
       return (await this.projectRepository.remove(project)).id;
     } catch (error) {
+      if (error.message) {
+        throw new BadRequestException(error.message);
+      }
+
       throw new BadRequestException('Failed to remove project');
     }
   }

@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Tag } from './entities/tag.entity';
@@ -8,12 +13,14 @@ import { UpdateTagDto } from './dto/update-tag.dto';
 @Injectable()
 export class TagsService {
   constructor(
-    @InjectRepository(Tag) 
+    @InjectRepository(Tag)
     private tagRepository: Repository<Tag>,
   ) {}
 
   async create(tag: CreateTagDto): Promise<Tag> {
-    const tagExists = await this.tagRepository.findOne({ where: { name: tag.name } });
+    const tagExists = await this.tagRepository.findOne({
+      where: { name: tag.name },
+    });
 
     if (tagExists) {
       return tagExists;
@@ -30,8 +37,10 @@ export class TagsService {
 
   async update(data: UpdateTagDto): Promise<Tag> {
     try {
-      const tagExists = await this.tagRepository.findOne({ where: { name: data.name } });
-      
+      const tagExists = await this.tagRepository.findOne({
+        where: { name: data.name },
+      });
+
       if (!tagExists) {
         if (!data.name) {
           throw new BadRequestException();
@@ -58,7 +67,7 @@ export class TagsService {
   }
 
   async remove(id: number): Promise<number> {
-    const tag = await this.tagRepository.findOne({ where: {id:  id } });
+    const tag = await this.tagRepository.findOne({ where: { id: id } });
 
     if (!tag) {
       throw new NotFoundException('Tag not found');

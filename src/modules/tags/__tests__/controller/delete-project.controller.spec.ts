@@ -4,7 +4,7 @@ import { ProjectsController } from '../../tags.controller';
 
 describe('ProjectController', () => {
   let controller: ProjectsController;
-  let service : ProjectsService;
+  let service: ProjectsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

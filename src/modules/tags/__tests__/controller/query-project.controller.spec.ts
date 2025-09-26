@@ -6,7 +6,7 @@ import { project } from '../fixtures/entities/project.entity';
 
 describe('ProjectsService', () => {
   let controller: ProjectsController;
-  let service : ProjectsService;
+  let service: ProjectsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -33,7 +33,11 @@ describe('ProjectsService', () => {
     });
 
     it('should show all projects at one array in response', async () => {
-      const projects: Project[] = [project, { ...project, id: 2}, { ...project, id: 3}];
+      const projects: Project[] = [
+        project,
+        { ...project, id: 2 },
+        { ...project, id: 3 },
+      ];
 
       jest.spyOn(service, 'findAll').mockResolvedValue(projects);
 

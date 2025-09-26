@@ -7,7 +7,7 @@ import { CreateProjectDto } from '../../dto/create-project.dto';
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
-  let repo : Repository<Partial<Project>>;
+  let repo: Repository<Partial<Project>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -31,12 +31,12 @@ describe('ProjectsService', () => {
     });
 
     it('should create a project', async () => {
-      const dto: CreateProjectDto = { 
-        name: 'Test Project', 
-        description: 'A test project', 
-        frontendUrl: 'http://example.com', 
+      const dto: CreateProjectDto = {
+        name: 'Test Project',
+        description: 'A test project',
+        frontendUrl: 'http://example.com',
         backendUrl: 'http://example.com/image.png',
-        liveUrl: 'http://example.com/image.png' 
+        liveUrl: 'http://example.com/image.png',
       };
 
       const newEntity = { id: 1, ...dto } as Project;
