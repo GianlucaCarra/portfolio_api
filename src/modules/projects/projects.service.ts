@@ -112,7 +112,10 @@ export class ProjectsService {
 
   async findAll(): Promise<Project[]> {
     const projects = await this.projectRepository.find({
-      relations: { tags: true },
+      relations: { 
+        tags: true,
+        images: true
+      },
     });
 
     return projects;

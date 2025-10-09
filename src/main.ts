@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: [/\.giancarra.com$/, 'https://giancarra.com'],
+    origin: ['http://localhost:3001', /\.giancarra.com$/, 'https://giancarra.com'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   });
@@ -19,7 +19,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
