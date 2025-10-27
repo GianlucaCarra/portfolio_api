@@ -1,5 +1,5 @@
-import { Image } from 'src/modules/images/entities/image.entity';
-import { Tag } from 'src/modules/tags/entities/tag.entity';
+import { Image } from '../../../modules/images/entities/image.entity';
+import { Tag } from '../../../modules/tags/entities/tag.entity';
 import {
   Column,
   Entity,

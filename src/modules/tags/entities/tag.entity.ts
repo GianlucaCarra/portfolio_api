@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Project } from 'src/modules/projects/entities/project.entity';
+import { Project } from '../../../modules/projects/entities/project.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
