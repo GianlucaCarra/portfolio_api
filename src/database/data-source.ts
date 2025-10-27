@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { Project } from '../modules/projects/entities/project.entity';
 import { Tag } from '../modules/tags/entities/tag.entity';
 import { DataSource } from 'typeorm';
-import { Image } from 'src/modules/images/entities/image.entity';
+import { Image } from '../modules/images/entities/image.entity';
 
 dotenv.config();
 

@@ -1,9 +1,9 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Tag } from 'src/modules/tags/entities/tag.entity';
-import { Project } from 'src/modules/projects/entities/project.entity';
-import { Image } from 'src/modules/images/entities/image.entity';
+import { Tag } from '../modules/tags/entities/tag.entity';
+import { Project } from '../modules/projects/entities/project.entity';
+import { Image } from '../modules/images/entities/image.entity';
 
 export const typeOrmConfig = (
   configService: ConfigService,
