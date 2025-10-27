@@ -10,7 +10,11 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['http://localhost:3001', /\.giancarra.com$/, 'https://giancarra.com'],
+    origin: [
+      'http://localhost:3000',
+      /\.giancarra.com$/,
+      'https://giancarra.com',
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   });
