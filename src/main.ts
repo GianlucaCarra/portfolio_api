@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { validationPipe } from './common/pipes/validation-pipe';
 import cookieParser from 'cookie-parser';
+import { env } from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,7 +24,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  await app.listen(3001);
+  await app.listen(process.env.PORT || 3001);
 }
 
 bootstrap();
