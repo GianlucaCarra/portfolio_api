@@ -16,7 +16,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { plainToInstance } from 'class-transformer';
 import { Project } from './entities/project.entity';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 
 @Controller('projects')
 export class ProjectsController {

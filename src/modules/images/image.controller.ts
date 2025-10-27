@@ -1,4 +1,4 @@
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { ImageService } from './image.service';
 import { UseGuards } from '@nestjs/common';
 
