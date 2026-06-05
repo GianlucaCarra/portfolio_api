@@ -1,4 +1,6 @@
 import {
+  isIn,
+  isInt,
   IsNotEmpty,
   IsOptional,
   isString,
@@ -18,6 +20,9 @@ export class CreateProjectDto {
   @IsOptional()
   @IsString()
   frontendUrl?: string;
+
+  @IsNotEmpty()
+  status: number;
 
   @IsOptional()
   @IsString()

@@ -9,6 +9,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+enum ProjectStatus {
+  PLANNING = 0,
+  DEV = 1,
+  PROD = 2,
+}
+
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn()
@@ -28,6 +34,9 @@ export class Project {
 
   @Column({ nullable: true })
   liveUrl?: string;
+
+  @Column({ default: ProjectStatus.PLANNING, nullable: true })
+  status: ProjectStatus;
 
   @OneToMany(() => Image, (image) => image.project, { cascade: true })
   images?: Image[];
